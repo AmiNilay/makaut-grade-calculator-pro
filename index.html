@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKAUT Grade Calculator Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2575fc">
+</head>
+<body>
+    <!-- Warning Modal -->
+    <div id="warning-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+            </div>
+            <div class="modal-body">
+                <p>⚠ Warning: This is not Official Website of MAKAUT or not related to MAKAUT. It just made to help student's.</p>
+                <p>This is a third-party tool designed to help students calculate their grades. It is not affiliated with, endorsed by, or connected to Maulana Abul Kalam Azad University of Technology (MAKAUT) in any way.</p>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="acknowledge-checkbox">
+                    <label for="acknowledge-checkbox">I understand and acknowledge this notice</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="accept-warning" class="btn btn-primary" disabled>Continue to Website</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>MAKAUT Grade Calculator Pro</h1>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" data-tab="sgpa" class="nav-link active">Calculators</a></li>
+                    <li><a href="#" data-tab="analytics" class="nav-link">Analytics</a></li>
+                    <li><a href="#" data-tab="prediction" class="nav-link">Prediction</a></li>
+                    <li><a href="#" data-tab="goals" class="nav-link">Goals</a></li>
+                    <li><a href="#" data-tab="insights" class="nav-link">Insights</a></li>
+                    <li><a href="#" data-tab="achievements" class="nav-link">Achievements</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Quick Stats Dashboard -->
+        <section class="quick-stats">
+            <div class="stat-card">
+                <i class="fas fa-chart-line"></i>
+                <div class="stat-info">
+                    <h3>Current CGPA</h3>
+                    <span id="current-cgpa">--</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <div class="stat-info">
+                    <h3>Goal Progress</h3>
+                    <span id="goal-progress">--</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-book"></i>
+                <div class="stat-info">
+                    <h3>Total Credits</h3>
+                    <span id="total-credits">--</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-bullseye"></i>
+                <div class="stat-info">
+                    <h3>Target CGPA</h3>
+                    <span id="target-cgpa">--</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-medal"></i>
+                <div class="stat-info">
+                    <h3>Achievements</h3>
+                    <span id="achievement-count">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grade Reference Card -->
+        <section class="grade-reference">
+            <h2>Grade Point Reference</h2>
+            <div class="grade-table">
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">O</div>
+                        <div class="grade-points">10</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Outstanding</div>
+                        <div class="grade-range">90-100</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">E</div>
+                        <div class="grade-points">9</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Excellent</div>
+                        <div class="grade-range">80-89</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">A</div>
+                        <div class="grade-points">8</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Very Good</div>
+                        <div class="grade-range">70-79</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">B</div>
+                        <div class="grade-points">7</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Good</div>
+                        <div class="grade-range">60-69</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">C</div>
+                        <div class="grade-points">6</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Fair</div>
+                        <div class="grade-range">50-59</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">D</div>
+                        <div class="grade-points">5</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Below Average</div>
+                        <div class="grade-range">40-49</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">F</div>
+                        <div class="grade-points">2</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Failed</div>
+                        <div class="grade-range">Below 40</div>
+                    </div>
+                </div>
+                <div class="grade-row">
+                    <div class="grade-header">
+                        <div class="grade">I</div>
+                        <div class="grade-points">2</div>
+                    </div>
+                    <div class="grade-details">
+                        <div class="grade-desc">Incomplete</div>
+                        <div class="grade-range">-</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators Tab -->
+        <div id="sgpa" class="calculator-tab active">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-calculator="sgpa">SGPA</button>
+                <button class="tab-btn" data-calculator="ygpa">YGPA</button>
+                <button class="tab-btn" data-calculator="cgpa">CGPA</button>
+                <button class="tab-btn" data-calculator="dgpa">DGPA</button>
+                <button class="tab-btn" data-calculator="backlog">Backlog</button>
+                <button class="tab-btn" data-calculator="whatif">What-If</button>
+            </div>
+
+            <!-- SGPA Calculator -->
+            <div id="sgpa-calculator" class="calculator-content active">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-calculator"></i> SGPA Calculator</h2>
+                    <p>Calculate your Semester Grade Point Average (SGPA)</p>
+                    
+                    <div class="form-container">
+                        <div class="subjects-container" id="sgpa-subjects">
+                            <!-- Initial subject rows will be added by JavaScript -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="add-subject" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Add Subject
+                            </button>
+                            <button id="save-sgpa" class="btn btn-info">
+                                <i class="fas fa-save"></i> Save Semester
+                            </button>
+                            <button id="calculate-sgpa" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> Calculate SGPA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="sgpa-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- YGPA Calculator -->
+            <div id="ygpa-calculator" class="calculator-content">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-calculator"></i> YGPA Calculator</h2>
+                    <p>Calculate your Yearly Grade Point Average (YGPA)</p>
+                    
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="odd-credit-index">Odd Semester Credit Index</label>
+                            <input type="number" id="odd-credit-index" step="0.01" placeholder="e.g., 87">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="odd-total-credits">Odd Semester Total Credits</label>
+                            <input type="number" id="odd-total-credits" step="0.01" placeholder="e.g., 10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="even-credit-index">Even Semester Credit Index</label>
+                            <input type="number" id="even-credit-index" step="0.01" placeholder="e.g., 85">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="even-total-credits">Even Semester Total Credits</label>
+                            <input type="number" id="even-total-credits" step="0.01" placeholder="e.g., 10">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="calculate-ygpa" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> Calculate YGPA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="ygpa-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- CGPA Calculator -->
+            <div id="cgpa-calculator" class="calculator-content">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-calculator"></i> CGPA Calculator</h2>
+                    <p>Calculate your Cumulative Grade Point Average (CGPA)</p>
+                    
+                    <div class="form-container">
+                        <div class="semesters-container" id="cgpa-semesters">
+                            <!-- Initial semester rows will be added by JavaScript -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="add-semester" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Add Semester
+                            </button>
+                            <button id="calculate-cgpa" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> Calculate CGPA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="cgpa-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- DGPA Calculator -->
+            <div id="dgpa-calculator" class="calculator-content">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-calculator"></i> DGPA Calculator</h2>
+                    <p>Calculate your Degree Grade Point Average (DGPA)</p>
+                    
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="course-type">Course Type</label>
+                            <select id="course-type">
+                                <option value="4-year">4-Year Degree Course</option>
+                                <option value="3-year-lateral">3-Year Degree Course (Lateral Entry)</option>
+                                <option value="3-year">3-Year Degree Course</option>
+                                <option value="2-year">2-Year Degree Course</option>
+                                <option value="1-year">1-Year Degree Course</option>
+                            </select>
+                        </div>
+                        
+                        <div id="dgpa-inputs">
+                            <!-- YGPA inputs will be dynamically added based on course type -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="calculate-dgpa" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> Calculate DGPA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="dgpa-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backlog Calculator -->
+            <div id="backlog-calculator" class="calculator-content">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-redo"></i> Backlog Calculator</h2>
+                    <p>Calculate your improved GPA after clearing backlogs</p>
+                    
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="current-cgpa-input">Current CGPA</label>
+                            <input type="number" id="current-cgpa-input" step="0.01" placeholder="e.g., 7.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="total-credits-completed">Total Credits Completed</label>
+                            <input type="number" id="total-credits-completed" step="0.01" placeholder="e.g., 100">
+                        </div>
+                        
+                        <div class="backlog-subjects" id="backlog-subjects">
+                            <h3>Backlog Subjects</h3>
+                            <!-- Backlog subjects will be added here -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="add-backlog" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Add Backlog Subject
+                            </button>
+                            <button id="calculate-backlog" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> Calculate Improved CGPA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="backlog-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- What-If Simulator -->
+            <div id="whatif-calculator" class="calculator-content">
+                <div class="calculator-card">
+                    <h2><i class="fas fa-magic"></i> What-If Scenario Simulator</h2>
+                    <p>Experiment with different grade combinations to see their impact</p>
+                    
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="current-semester">Current Semester</label>
+                            <input type="number" id="current-semester" min="1" max="8" placeholder="e.g., 3">
+                        </div>
+                        
+                        <div class="scenario-subjects" id="scenario-subjects">
+                            <h3>Upcoming Subjects</h3>
+                            <!-- Scenario subjects will be added here -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="add-scenario" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Add Subject
+                            </button>
+                            <button id="run-simulation" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Run Simulation
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="whatif-result" class="result-container hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="calculator-tab">
+            <div class="analytics-container">
+                <div class="analytics-card">
+                    <h2><i class="fas fa-chart-bar"></i> Performance Analytics</h2>
+                    
+                    <div class="chart-container">
+                        <canvas id="semester-trend-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="subject-performance-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="grade-distribution-chart"></canvas>
+                    </div>
+                    
+                    <div class="export-section">
+                        <button id="export-analytics" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Export Analytics Report
+                        </button>
+                        <button id="export-excel" class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> Export to Excel
+                        </button>
+                        <button id="export-csv" class="btn btn-info">
+                            <i class="fas fa-file-csv"></i> Export to CSV
+                        </button>
+                        <button id="generate-transcript" class="btn btn-warning">
+                            <i class="fas fa-file-pdf"></i> Generate Transcript
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prediction Tab -->
+        <div id="prediction" class="calculator-tab">
+            <div class="prediction-container">
+                <div class="prediction-card">
+                    <h2><i class="fas fa-crystal-ball"></i> Grade Prediction Tool</h2>
+                    <p>Predict what grades you need to achieve your target</p>
+                    
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="target-cgpa-input">Target CGPA</label>
+                            <input type="number" id="target-cgpa-input" step="0.01" min="6" max="10" placeholder="e.g., 8.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="remaining-semesters">Remaining Semesters</label>
+                            <input type="number" id="remaining-semesters" min="1" max="8" placeholder="e.g., 3">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="credits-per-semester">Average Credits per Semester</label>
+                            <input type="number" id="credits-per-semester" step="0.01" placeholder="e.g., 22">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="predict-grades" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i> Predict Required Grades
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="prediction-result" class="result-container hidden">
+                        <!-- Prediction results will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="study-priority-card">
+                    <h2><i class="fas fa-list-ol"></i> Study Priority Recommender</h2>
+                    <p>Based on your current performance, here are your study priorities</p>
+                    
+                    <div id="priority-list" class="priority-list">
+                        <!-- Priority list will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals Tab -->
+        <div id="goals" class="calculator-tab">
+            <div class="goals-container">
+                <div class="goals-card">
+                    <h2><i class="fas fa-bullseye"></i> Academic Goal Tracker</h2>
+                    
+                    <div class="goal-form">
+                        <div class="form-group">
+                            <label for="goal-type">Goal Type</label>
+                            <select id="goal-type">
+                                <option value="cgpa">Target CGPA</option>
+                                <option value="subject">Subject Grade</option>
+                                <option value="semester">Semester SGPA</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-value">Goal Value</label>
+                            <input type="number" id="goal-value" step="0.01" placeholder="e.g., 8.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-deadline">Target Date</label>
+                            <input type="date" id="goal-deadline">
+                        </div>
+                        
+                        <button id="add-goal" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Goal
+                        </button>
+                    </div>
+                    
+                    <div class="goals-list" id="goals-list">
+                        <!-- Goals will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="scholarship-card">
+                    <h2><i class="fas fa-award"></i> Scholarship Eligibility Checker</h2>
+                    <p>Check your eligibility for various scholarships</p>
+                    
+                    <div class="scholarship-list" id="scholarship-list">
+                        <!-- Scholarship eligibility will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Tab -->
+        <div id="insights" class="calculator-tab">
+            <div class="insights-container">
+                <div class="insights-card">
+                    <h2><i class="fas fa-lightbulb"></i> Performance Insights</h2>
+                    
+                    <div class="insights-content" id="insights-content">
+                        <!-- AI-powered insights will be displayed here -->
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h3>Personalized Recommendations</h3>
+                        <div id="recommendations-list">
+                            <!-- Recommendations will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Tab -->
+        <div id="achievements" class="calculator-tab">
+            <div class="achievements-container" style="grid-template-columns: 1fr;">
+                <div class="achievements-card">
+                    <h2><i class="fas fa-trophy"></i> Achievement Badges</h2>
+                    <p>Earn badges for your academic milestones</p>
+                    
+                    <div class="achievements-grid" id="achievements-grid">
+                        <!-- Achievement badges will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" id="fab-main">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="fab-options" id="fab-options">
+            <button class="fab-option" data-action="quick-calc">
+                <i class="fas fa-calculator"></i>
+                <span>Quick Calculate</span>
+            </button>
+            <button class="fab-option" data-action="add-grade">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Grade</span>
+            </button>
+            <button class="fab-option" data-action="view-stats">
+                <i class="fas fa-chart-pie"></i>
+                <span>View Stats</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container">
+        <!-- Notifications will appear here -->
+    </div>
+
+    <!-- Achievement Unlock Modal -->
+    <div id="achievement-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Achievement Unlocked!</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="achievement-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h4 id="achievement-title">Achievement Title</h4>
+                <p id="achievement-description">Achievement Description</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Awesome!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install App Banner -->
+    <div id="install-banner" class="install-banner hidden">
+        <div class="install-content">
+            <i class="fas fa-download"></i>
+            <span>Install MAKAUT Grade Calculator for quick access</span>
+            <button id="install-btn" class="btn btn-primary">Install</button>
+            <button id="dismiss-install" class="btn btn-secondary">Dismiss</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MAKAUT Grade Calculator Pro. All rights reserved.</p>
+            <div class="footer-links">
+                <button id="export-data" class="footer-btn" title="Export all data to JSON file">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button id="import-data" class="footer-btn" title="Import data from JSON file">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+                <button id="clear-data" class="footer-btn" title="Clear all data (cannot be undone)">
+                    <i class="fas fa-trash"></i> Clear Data
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden file input for data import -->
+    <input type="file" id="data-import-input" accept=".json" style="display: none;">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
